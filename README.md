@@ -1,73 +1,5 @@
 # The RPM Contrib Gem
 
-The `rpm_contrib` gem contains instrumentation for the New Relic RPM agent
-contributed by the community of RPM users.  It requires the RPM Agent to run.
-
-## Deprecation of RPM Contrib
-
-Over the next several months we are planning to phase out the rpm_contrib gem.
-We plan to migrate the existing instrumentation into separate projects that
-instrument indivdual libraries or frameworks.  We see this as having a number of
-advantages for newrelic users.  We will provide a list of recommended
-instrumentation projects.
-
-###  Request for Maintainers
-
-If you're interested in maintaining instrumentation for a specific
-library/framework, please let us know.  We'd love to work with you and promote
-your project.  -The New Relic Ruby Agent Team
-
-## New Relic Ruby Agent Plugins (Seperate Projects)
-
-Here is a list of instrumentation projects for various Ruby libraries:
-
-#### Redis
-
-As of version 2.1.8 Redis instrumentation has been removed from rpm_contrib.
-Please use Evan Phoenix's `newrelic-redis` gem instead.
-
-https://github.com/evanphx/newrelic-redis
-
-#### Mongoid 3 / Moped
-
-Instrumentation for Mongoid 3 / Moped:
-
-https://github.com/stevebartholomew/newrelic_moped
-
-#### Faraday
-
-
-#### Faraday
-
-Instrumentation for the HTTP client library Faraday is available at:
-
-https://github.com/Viximo/newrelic-faraday
-
-#### Riak-Client and Ripple
-
-Riak client and ripple instrumentation are available at:
-
-https://github.com/alinpopa/newrelic-riak
-
-#### Workling
-
-Workling instrumenatation can be found at:
-
-https://github.com/aurorafeint/newrelic-workling
-
-#### Sequel
-
-Instrumentation for the Sequel gem can be found at:
-
-https://github.com/realestate-com-au/newrelic-sequel
-
-#### Excon
-
-Instrumentation for the Excon gem can be found at:
-
-https://github.com/helle/newrelic-excon
-
-
 ## Getting Started
 
 To use the rpm_contrib gem, install the `rpm_contrib` gem from rubygems.org.
@@ -78,23 +10,6 @@ For Rails 3.0 and when using Bundler, add these dependencies to your Gemfile:
 
     gem 'rpm_contrib'
     gem 'newrelic_rpm'
-
-For Rails 2.1 and later, add these dependencies to your in your environment.rb:
-
-    config.gem 'rpm_contrib'
-    config.gem 'newrelic_rpm'
-
-For other frameworks, make sure you load rubygems if it isn't already, then just
-require the rpm_contrib gem:
-
-    require 'rubygems'
-    require 'rpm_contrib'
-
-In non-Rails frameworks, it's important that the New Relic Agent gets
-loaded as late as possible, or that the final initialization hook is called 
-after all other frameworks have loaded:
-
-    DependencyDetection.detect!
 
 ### Troubleshooting Startup
 
@@ -112,108 +27,11 @@ and examine the `newrelic_agent.log` file for errors after restarting your app.
 
 A number of frameworks are supported in the contrib gem.  They are all turned on
 by default but you can add settings to your newrelic.yml to disable any of them.
-
-### ActiveMessaging
-
-The gem will detect the underlying ActiveMessaging::Processor class and instrument the `on_message` method
-
-It can be disabled with the `disable_active_messaging` flag in your newrelic.yml file.
-
-### Cassandra
-
-The gem will instrument Cassandra so it should be visible in transaction traces and the web transactions page.
-
-You can disable it with `disable_cassandra_instrumentation` in your newrelic.yml file.
-
-### Camping
-
-The gem will detect a Camping app but you need to manually add the
-instrumentation to your configuration file.  See
-RPMContrib::Instrumentation::Camping for more information. 
-
-In addition you will need to load the gems in the following order: 1) Camping, 2) rpm_contrib,
-3) newrelic_rpm.
-
-### Crack
-
-The gem will instrument the Crack parsers for JSON and XML - you
-should see them in transaction traces and the web transactions page.
-
-You can disable it with `disable_crack` in your newrelic.yml file.
-
-### Curb
-
-The gem will instrument both Curl::Easy and Curl::Multi - they should show up similarly to Net::HTTP in the UI
-
-You can disable it with `disable_curb` in your newrelic.yml file.
-
-### Elastic Search
-
-The gem will instrument ElasticSearch::Client. The metrics should show up in the UI
-
-You can disable it with `disable_elastic_search_instrumentation` in your newrelic.yml file.
-
-### KyotoTycoon
-
-The gem will instrument KyotoTycoon.
-
-You can disable it with `disable_kyototycoon` in your newrelic.yml file.
-
-### Paperclip
-
-No special configuration required for Paperclip visibility.  
-
-You can disable it by setting `disable_paperclip` to true in your newrelic.yml file.
-
-### Picky
-
-The gem will instrument the [Picky semantic search engine](http://florianhanke.com/picky/) so it should be visible in transaction traces and the web transactions page.
-
-You can disable it with `disable_picky` in your newrelic.yml file.
-
-### MongoDB
-
-Our instrumentation works on the underlying 'Mongo' library.  
-
-You can disable it by setting 'disable_mongodb' to true in your newrelic.yml file.
-
-### Redis
-
-Redis instrumentation has been removed from rpm_contrib.
-
-Please use Evan Phoenix's `newrelic-redis` gem instead.
-https://github.com/evanphx/newrelic-redis
-
 ### Sinatra view instrumentation
 
 This adds instrumentation to the `render` methods in Sinatra::Base
 
 You can disable it with `disable_sinatra_template` in your newrelic.yml file.
-
-### ThinkingSphinx instrumentation
-
-This adds instrumentation to the `initialize` and `results` method of ThinkingSphinx::Search
-
-You can disable it with `disable_thinking_sphinx` in your newrelic.yml file.
-
-
-### Typhoeus instrumentation
-
-This adds instrumentation to the Typhoeus::Request class for 'GET' requests
-
-You can disable it with `disable_typhoeus` in your newrelic.yml file.
-
-### Ultrasphinx instrumentation
-
-This adds basic instrumentation to the `run` and `results` method of Ultrasphinx::Search
-
-You can disable it with `disable_ultrasphinx` in your newrelic.yml file.
-
-### YAJL
-
-This adds instrumentation to the YAJL json parser
-
-You can disable it with `disable_yajl_instrumentation` in your newrelic.yml file.
 
 ### AWS/S3
 
@@ -285,45 +103,5 @@ This module will be accessed at the time environment detection takes place, when
 the agent is initialized.
 
 This module should define the method `discover_dispatcher` and return the name
-of the dispatcher if detected, or defer to super.  See
-`rpm_contrib/detection/camping.rb` for a good example.
+of the dispatcher if detected, or defer to super. 
 
-## Supporting New Frameworks
-
-Supporting new frameworks can be pretty involved and generally involves both
-adding custom instrumentation as well as framework and dispatcher detection.
-
-In addition it will be necessary to define a new control class with the same 
-name as the framework.  This control class must go in `new_relic/control`.
-
-Refer to the camping example in this gem to see how this is done in general.
-
-If you decide to tackle any new frameworks, contact support@newrelic.com and
-we'll be happy to help you work through it.
-
-# Note on Patches/Pull Requests
- 
-* Fork the http://www.github.com/newrelic/rpm_contrib project.
-* Add instrumentation files to `lib/rpm_contrib/instrumentation`.  These
-  files will be loaded when the RPM agent is initialized.
-* Add samplers to `lib/rpm_contrib/samplers`.  These classes are
-  installed automatically when the RPM agent is initialized.
-* Add tests.
-* Update README.md
-* Commit, do not mess with the Rakefile, version, or history.  (if you
-  want to have your own version, that is fine but bump version in a
-  commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
-
-# Further Information
-
-Refer to the Agent API Documentation at http://newrelic.github.com/rpm
-
-See the support site faqs at http://support.newrelic.com/faqs for additional
-tips and documentation.
-
-Contact support@newrelic.com for help.
-
-### Copyright
-
-Copyright (c) 2009-2010 New Relic. See LICENSE for details.

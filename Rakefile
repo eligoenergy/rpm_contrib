@@ -21,7 +21,7 @@ begin
     gem.summary = SUMMARY
     gem.description = DESCRIPTION
     gem.email = "support@newrelic.com"
-    gem.homepage = "http://github.com/newrelic/rpm_contrib"
+    gem.homepage = "http://github.com/eligoenergy/rpm_contrib"
     gem.authors = [ "Bill Kayser", "Jon Guymon" ]
     gem.add_dependency 'newrelic_rpm', '>=3.1.1'
     gem.version = version
